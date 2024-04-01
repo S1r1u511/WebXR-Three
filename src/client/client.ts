@@ -15,6 +15,9 @@ renderer.xr.enabled = true; // Enabled XR support
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
+//WebXRManager
+
+
 // VR button setup
 document.body.appendChild(VRButton.createButton(renderer));
 
@@ -70,7 +73,8 @@ function onWindowResize() {
 
 // Animation loop
 function animate() {
-    requestAnimationFrame(animate);
+    //requestAnimationFrame(animate);
+    renderer.setAnimationLoop(animate);
 
     rotatingCube.rotation.x += 0.01;
     rotatingCube.rotation.y += 0.01;
