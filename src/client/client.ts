@@ -20,16 +20,14 @@ document.body.appendChild(VRButton.createButton(renderer));
 // Controls setup
 const controls = new OrbitControls(camera, renderer.domElement);
 
-// Geometry and material setup
+// Geometry setup
 const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial({
-    color: 0x00ff00,
-    wireframe: true,
-});
+const redMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Red color material
 
-// Rotating cube setup
-const rotatingCube = new THREE.Mesh(geometry, material);
-scene.add(rotatingCube);
+// Static cube setup
+const staticCube = new THREE.Mesh(geometry, redMaterial);
+staticCube.position.set(2, 0, 0); // Set position
+scene.add(staticCube);
 
 // Function to generate random position near the rotating cube
 function generateRandomPosition() {
@@ -42,11 +40,15 @@ function generateRandomPosition() {
     return new THREE.Vector3(x, y, z);
 }
 
+// Rotating cube setup
+const rotatingCube = new THREE.Mesh(geometry, redMaterial);
+scene.add(rotatingCube);
+
 // Spawn 10 cubes in random locations near the rotating cube
 const spawnCubes = () => {
     const cubes = [];
     for (let i = 0; i < 10; i++) {
-        const cube = new THREE.Mesh(geometry, material);
+        const cube = new THREE.Mesh(geometry, redMaterial);
         cube.position.copy(generateRandomPosition());
         scene.add(cube);
         cubes.push(cube);
@@ -81,16 +83,6 @@ function animate() {
 function render() {
     renderer.render(scene, camera);
 }
-
-// Add directional light to the scene
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight.position.set(0, 1, 0);
-scene.add(directionalLight);
-
-// Add a static cube to the scene
-const staticCube = new THREE.Mesh(geometry, material);
-staticCube.position.set(2, 0, 0); // Set position
-scene.add(staticCube);
 
 // Start animation loop
 animate();
