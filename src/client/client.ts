@@ -8,8 +8,10 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 camera.position.z = 5;
 
 const renderer = new THREE.WebGLRenderer();
+renderer.xr.enabled = true; //Enabled XR support
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+document.body.appendChild(VRButton.createButton(renderer));
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
